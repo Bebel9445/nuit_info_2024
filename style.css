@@ -1,0 +1,125 @@
+/*Modifications générales*/
+
+/*Overlay meteo*/
+.OverlayMeteo{
+    position: absolute; /* Permet de positionner précisément */
+    top:10%;
+    right: 0; /* Aligne à droite */
+    width: 20%;
+    height: 15%;
+    background-color: #f0f0f0;
+    display: flex; /* Permet d'aligner l'image au centre */
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    
+    
+}
+
+/*Overlay map*/
+.OverlayMap {
+    position: absolute; /* Permet de positionner précisément */
+    top: 0; /* Place en haut de la page */
+    right: 0; /* Aligne à droite */
+    width: 30%;
+    height: 40%;
+    background-color: #f0f0f0;
+    display: flex; /* Permet d'aligner l'image au centre */
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    border: 1px solid #aaa;
+}
+
+.OverlayMap img {
+    max-height: 100%; /* S'assure que l'image ne dépasse pas la hauteur du rectangle */
+    max-width: 100%; /* S'assure que l'image ne dépasse pas la largeur */
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Menu Container */
+.menu-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    background: rgba(200, 200, 200, 0.8); /* Gris clair translucide */
+    color: #333;
+    transition: height 0.3s ease; /* Transition pour dérouler */
+    height: 40px; /* Hauteur initiale */
+    overflow: hidden;
+}
+
+/* Menu Header */
+.menu-header {
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Menu Items */
+.menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu li {
+    padding: 10px;
+    text-align: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.menu li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.menu li a:hover {
+    background: #555; /* Couleur de survol */
+    color: #fff;
+}
+
+/* Déroulement au survol */
+.menu-container:hover {
+    height: 100%; /* Déroule sur toute la hauteur */
+}
+
+/* Content Styling */
+.content {
+    margin-left: 220px; /* Espace pour le menu */
+    padding: 20px;
+}
+
+/* Styles généraux du site */
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    height: 2000px;  /* Juste pour avoir une page avec du scroll */
+    background-color: #f0f0f0;
+  }
+
+  /* Carte affichant un site Web placé dans le coin supérieur droit */
+  #iframe-container {
+    width: 400px;     /* Largeur de l'iframe */
+    height: 300px;    /* Hauteur de l'iframe */
+    position: fixed;  /* Position fixe */
+    top: 20px;        /* Position depuis le haut */
+    right: 20px;      /* Position depuis la droite */
+    z-index: 1000;    /* Z-index pour s'assurer qu'il est au-dessus des autres éléments */
+    border: 2px solid #333;
+    overflow: hidden; /* Pour éviter les barres de défilement internes */
+  }
+
+  iframe {
+    width: 100%;      /* L'iframe prend toute la largeur de son conteneur */
+    height: 100%;     /* L'iframe prend toute la hauteur de son conteneur */
+    border: none;     /* Enlève la bordure de l'iframe */
+  }

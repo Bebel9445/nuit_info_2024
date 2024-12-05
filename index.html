@@ -2,24 +2,71 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <title>Bato Explorer</title>
-    <style>
-        canvas {
-          display: block;
-          margin: 0 auto;
-          background: black;
-        }
-        body {
-          margin: 0;
-          overflow: hidden;
-        }
-      </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuit de l'info - 2024</title>
+    <link rel="stylesheet" href="style.css"> <!-- Lien vers une feuille de style -->
 </head>
 <body>
-    <!-- Ajouter un div pour le jeu -->
-    <canvas id="gameCanvas"></canvas>
-    <script src="src/main.js"></script>
+    <header>  
+        <div class="menu-container">
+            <div class="menu-header">Menu</div>
+            <ul class="menu">
+                <li>Location - Ports
+                    <select id="portSelect" onchange="changePort(this.value)">
+                        <option value="Strasbourg">Strasbourg</option>
+                        <option value="Saint-Pétersbourg">Saint-Pétersbourg</option>
+                        <option value="New York">New York</option>
+                        <option value="Hambourg">Hambourg</option>
+                        <option value="Shanghai">Shanghai</option>
+                        <option value="Rotterdam">Rotterdam</option>
+                        <option value="Djibouti">Djibouti</option>
+                        <option value="Yokohama">Yokohama</option>
+                    </select>
+                </li>
+                <li><a href="#">Reset</a></li>
+                <li><a href="#">Crédits</a></li>
+            </ul>
+        </div>
+        
+        <!-- <div class="OverlayMap"><img src="carte.jpg" alt="Carte du jeu"></div> -->
+        <!-- <div id="iframe-container">
+            <iframe id="iframe" src=""></iframe> L'URL sera mise dynamiquement
+        </div> -->
+
+        <div class="OverlayMeteo">
+            <table border="1">
+                <tr>
+                  <th>Ville</th>
+                  <td id="ville"></td>
+                </tr>
+                <tr>
+                  <th>Température</th>
+                  <td id="temperature">-- °C</td>
+                </tr>
+                <tr>
+                  <th>Vitesse du vent</th>
+                  <td id="windspeed">-- km/h</td>
+                </tr>
+                <tr>
+                  <th>Direction du vent</th>
+                  <td id="winddirection">-- °</td>
+                </tr>
+                <tr>
+                  <th>Heure de la ville</th>
+                  <td id="city-time"></td>
+                </tr>
+              </table>
+              
+        </div>
+    </header>
+    <main>
+        <section>
+
+        </section>
+    </main>
+    <footer>
+
+    </footer>
+    <script src="script.js"></script> <!-- Lien vers un script JavaScript -->
 </body>
 </html>
