@@ -95,40 +95,46 @@
     </div>
     <audio id="audio" autoplay loop>
         <source src="assets/CodeQ.mp3" type="audio/mpeg"> <!-- Assurez-vous que le fichier audio est présent -->
-        Votre navigateur ne prend pas en charge l'élément audio.
     </audio>
     <script>
-    // Liste des touches pour le Konami Code : haut, haut, bas, bas, gauche, droite, gauche, droite, B, A
-    const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
-    let konamiIndex = 0;
-
-    // Références à l'élément du message
-    const konamiMessage = document.getElementById("C'est un chameau, il va dans une fromagerie, il demande à la fromagère un whisky. La fromagère lui dit qu'elle ne vend pas de whisky car ici c'est une fromagerie. Le chameau réfléchie et lui dit: c'est pas grave, je suis venu à");
-
-    // Gestion des touches appuyées
-    document.addEventListener('keydown', function(event) {
-        if (event.keyCode === konamiCode[konamiIndex]) {
-            konamiIndex++;
-            // Si tout le code est saisi
-            if (konamiIndex === konamiCode.length) {
-                konamiMessage.style.display = 'block'; // Affiche le message
-                konamiMessage.innerHTML = "<p>Konami Code Activé ! Vous êtes un(e) véritable Jedi !</p>";
-                konamiIndex = 0; // Réinitialise pour permettre un nouvel essai
+        // Liste des touches pour le Konami Code
+        const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39];
+        let konamiIndex = 0;
+    
+        // Référence à l'élément du message
+        const konamiMessage = document.getElementById('konamiMessage');
+    
+        // Gestionnaire d'événements pour détecter les touches
+        document.addEventListener('keydown', function(event) {
+            console.log("Touche pressée : ", event.keyCode);
+    
+            if (event.keyCode === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                console.log(`Progression du Konami Code : ${konamiIndex}/${konamiCode.length}`);
+    
+                // Vérifie si le Konami Code est entièrement saisi
+                if (konamiIndex === konamiCode.length) {
+                    konamiMessage.style.display = 'block'; // Affiche le message
+                    konamiMessage.innerHTML = `
+                        <p>C'est un chameau, il va dans une fromagerie, il demande à la fromagère un whisky. 
+                        La fromagère lui dit qu'elle ne vend pas de whisky car ici c'est une fromagerie. 
+                        Le chameau réfléchit et lui dit : "C'est pas grave, je suis venu !"</p>`;
+                    konamiIndex = 0; // Réinitialise pour permettre un nouvel essai
+                }
+            } else {
+                console.log("Séquence brisée, réinitialisation.");
+                konamiIndex = 0; // Réinitialise si la séquence est brisée
             }
-        } else {
-            konamiIndex = 0; // Réinitialise si la séquence est brisée
-        }
-    });
-
-    // Essayer de jouer l'audio immédiatement
-    var audio = document.getElementById('audio');
-    audio.play().catch(function(error) {
-        console.log("Playback failed: " + error);
-    });
-
-    // Redirection automatique après 23 secondes
-    setTimeout(function() {
-        window.location.href = "index.html"; 
-    }, 22900);
-</script>
-        
+        });
+    
+        // Lecture automatique de l'audio avec gestion des erreurs
+        const audio = document.getElementById('audio');
+        audio.play().catch(function(error) {
+            console.error("Erreur de lecture audio : ", error);
+        });
+    
+        // Redirection automatique après 23 secondes
+        setTimeout(function() {
+            window.location.href = "index.html"; 
+        }, 22900);
+    </script>    
