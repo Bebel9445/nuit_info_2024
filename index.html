@@ -6,7 +6,7 @@
     <title>Nuit de l'info - 2024</title>
     <link rel="stylesheet" href="style.css"> <!-- Lien vers une feuille de style -->
     <style>
-        <body> {
+        body {
             filter: contrast(0.5) saturate(2) brightness(0.8) hue-rotate(90deg);
             image-rendering: pixelated; /* Pour un rendu pixelisé */
         }
@@ -66,11 +66,11 @@
                 <source src="nuit_info_2024/asset/MusiqueG.mp3" type="audio/mpeg">
             </audio>
 
-            <audio id="Rick" loop autoplay>
+            <audio id="Rick">
                 <source src="nuit_info_2024/asset/Rick.mp3" type="audio/mpeg">
             </audio>
 
-            <audio id="Easter" loop autoplay>
+            <audio id="Easter">
                 <source src="nuit_info_2024/asset/CodeQ.mp3" type="audio/mpeg">
             </audio>
 
@@ -84,12 +84,12 @@
         </section>
     </main>
     <footer>
-        <input class="bout" type="button" value="Voir les crédits" />
+        <a classe="bout" href="Credit.html"><button>Voir les crédits</button></a>
     </footer>
     <script src="script.js"></script> <!-- Lien vers un script JavaScript -->
     <script>
         // JavaScript pour jouer la musique d'événement
-        document.getElementById("play-eventmusic").addEventListener("click", function() {
+        document.getElementById("play-event-music").addEventListener("click", function() {
             var eventMusic = document.getElementById("eventmusic");
             eventMusic.play();
         });
