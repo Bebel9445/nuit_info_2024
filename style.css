@@ -1,5 +1,9 @@
 /*Modifications générales*/
 
+html {
+    height: 100%;
+}
+
 body {
     filter: contrast(0.5) saturate(2) brightness(0.8) hue-rotate(90deg);
     image-rendering: pixelated; /* Pour un rendu pixelisé */
@@ -24,12 +28,13 @@ body {
     right: 0; /* Aligne à droite */
     width: 20%;
     height: 15%;
-    background-color: #f0f0f0;
     display: flex; /* Permet d'aligner l'image au centre */
     justify-content: center; /* Centre horizontalement */
     align-items: center; /* Centre verticalement */
-    
-    
+}
+
+table {
+    background-color: #f0f0f0;
 }
 
 /*Overlay map*/
@@ -55,7 +60,8 @@ body, html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Pieces of Eight; 
+    font-family: Pieces of Eight;
+}
 
 /* Menu Container */
 .menu-container {
@@ -118,24 +124,12 @@ body, html {
 body {
     font-family: Pieces of Eight;
     padding: 20px;
-    height: 2000px;  /* Juste pour avoir une page avec du scroll */
+    height: 100%;  /* Juste pour avoir une page avec du scroll */
     background-color: #f0f0f0;
   }
 
-  /* Carte affichant un site Web placé dans le coin supérieur droit */
-  #iframe-container {
-    width: 400px;     /* Largeur de l'iframe */
-    height: 300px;    /* Hauteur de l'iframe */
-    position: fixed;  /* Position fixe */
-    top: 20px;        /* Position depuis le haut */
-    right: 20px;      /* Position depuis la droite */
-    z-index: 1000;    /* Z-index pour s'assurer qu'il est au-dessus des autres éléments */
-    border: 2px solid #333;
-    overflow: hidden; /* Pour éviter les barres de défilement internes */
-  }
-
-  iframe {
-    width: 100%;      /* L'iframe prend toute la largeur de son conteneur */
-    height: 100%;     /* L'iframe prend toute la hauteur de son conteneur */
-    border: none;     /* Enlève la bordure de l'iframe */
-  }
+footer {
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+}
