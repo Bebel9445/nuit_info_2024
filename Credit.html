@@ -3,19 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crédits Défilants</title>
+    <title>Crédits Star Wars</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .star-wars {
+            position: relative;
+            height: 100vh;
+            perspective: 400px;
+        }
+
+        .crawl {
+            position: absolute;
+            top: 100%;
+            width: 100%;
+            text-align: center;
+            transform: rotateX(25deg);
+            animation: crawl 60s linear infinite;
+        }
+
+        @keyframes crawl {
+            0% {
+                top: 100%;
+            }
+            100% {
+                top: -100%;
+            }
+        }
+
+        .title {
+            font-size: 2em;
+            margin: 0;
+        }
+
+        .credits {
+            font-size: 1.5em;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
-    <marquee behavior="scroll" direction="up" scrollamount="5">
-        <h1>Crédits</h1>
-        <p>Réalisateur : Hideo Kojima</p>
-        <p>HTML : Léo Lienhard, Ian Stoll-Geyer</p>
-        <p>CSS : Léo Lienhard, Ian Stoll-Geyer</p>
-        <p>Java-Script : Abel Gomes</p>
-        <p>Dessin : Capucine Dausse<p>
-        <p>Montage/Effet sonore : Léo Lienhard</p>
-        <p>Responsable de la santé mental de l'équipe : Krof</p>
-        <p>Production : :(){:|:&};: </p>
-    </marquee>
+    <div class="star-wars">
+        <div class="crawl">
+            <div class="title">Épisode IV</div>
+            <h1>A New Hope</h1>
+            <div class="credits">
+                <p>Réalisateur : Jean Dupont</p>
+                <p>Scénariste : Marie Curie</p>
+                <p>Acteurs : Pierre Martin, Sophie Durand</p>
+                <p>Musique : Claude Debussy</p>
+                <p>Production : Studio XYZ</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
