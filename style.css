@@ -1,5 +1,12 @@
 /*Modifications générales*/
 
+@font-face {
+    font-family: 'NomDeVotrePolice';
+    src: url('nuit_info_2024/asset/Pieces of Eight.ttf') format('truetype');
+    font-weight: normal; 
+    font-style: normal; 
+}
+
 /*Overlay meteo*/
 .OverlayMeteo{
     position: absolute; /* Permet de positionner précisément */
@@ -38,8 +45,7 @@ body, html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
+    font-family: Pieces of Eight; 
 
 /* Menu Container */
 .menu-container {
@@ -100,7 +106,7 @@ body, html {
 
 /* Styles généraux du site */
 body {
-    font-family: Arial, sans-serif;
+    font-family: Pieces of Eight;
     padding: 20px;
     height: 2000px;  /* Juste pour avoir une page avec du scroll */
     background-color: #f0f0f0;
