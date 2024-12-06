@@ -4,18 +4,8 @@ html {
     height: 100%;
 }
 
-body {
-    filter: contrast(0.5) saturate(2) brightness(0.8) hue-rotate(90deg);
-    image-rendering: pixelated; /* Pour un rendu pixelisé */
-}
-
-.pixelated {
-    filter: contrast(0.5) saturate(2) brightness(0.8) hue-rotate(90deg);
-    image-rendering: pixelated; /* Pour un rendu pixelisé */
-}
-
 @font-face {
-    font-family: 'Pieces';
+    font-family: 'NomDeVotrePolice';
     src: url('nuit_info_2024/asset/Pieces of Eight.ttf') format('truetype');
     font-weight: normal; 
     font-style: normal; 
@@ -35,6 +25,15 @@ body {
 
 table {
     background-color: #f0f0f0;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
 }
 
 /*Overlay map*/
@@ -60,7 +59,7 @@ body, html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Pieces;
+    font-family: Pieces of Eight;
 }
 
 /* Menu Container */
@@ -102,7 +101,7 @@ body, html {
     color: #333;
     display: block;
     transition: background 0.3s ease, color 0.3s ease;
-}
+}   
 
 .menu li a:hover {
     background: #555; /* Couleur de survol */
@@ -122,7 +121,7 @@ body, html {
 
 /* Styles généraux du site */
 body {
-    font-family: Pieces;
+    font-family: Pieces of Eight;
     padding: 20px;
     height: 100%;  /* Juste pour avoir une page avec du scroll */
     background-color: #f0f0f0;

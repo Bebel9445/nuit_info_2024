@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,12 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuit de l'info - 2024</title>
     <link rel="stylesheet" href="style.css"> <!-- Lien vers une feuille de style -->
-    <style>
-        body {
-            filter: contrast(0.5) saturate(2) brightness(0.8) hue-rotate(90deg);
-            image-rendering: pixelated; /* Pour un rendu pixelisé */
-        }
-    </style>
 </head>
 <body>
     <header>  
@@ -29,8 +24,8 @@
                         <option value="Yokohama">Yokohama</option>
                     </select>
                 </li>
-                <li><a href="#">Reset</a></li>
-                <li><a href="#">Crédits</a></li>
+                <li><a href="#" id="reset">Reset</a></li>
+                <li><a href="Credit.html">Crédits</a></li>
             </ul>
         </div>
         
@@ -80,12 +75,11 @@
                 <source src="nuit_info_2024/asset/Victoire.mp3" type="audio/mpeg">
             </audio>
 
+            <button id="play-event-music"></button>
         </section>
+        <canvas id="gameCanvas"></canvas>
     </main>
-    <footer>
-        <a classe="bout" href="Credit.html"><button>Voir les crédits</button></a>
-    </footer>
-    <script src="script.js"></script> <!-- Lien vers un script JavaScript -->
+    <script src="src/script.js"></script> <!-- Lien vers un script JavaScript -->
     <script>
         // JavaScript pour jouer la musique d'événement
         document.getElementById("play-event-music").addEventListener("click", function() {
