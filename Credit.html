@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta http-equiv="refresh" content="10; URL=http://www.votreautrepage.com/" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="60; URL=index.html" />
     <title>Crédits</title>
     <style>
         body {
@@ -26,7 +26,7 @@
             width: 100%;
             text-align: center;
             transform: rotateX(20deg);
-            animation: crawl 20s linear infinite;
+            animation: crawl 23s linear forwards;
         }
 
         @keyframes crawl {
@@ -58,20 +58,29 @@
                 <p>Réalisateur : Hideo Kojima</p>
                 <p>HTML : Léo Lienhard, Yann Stoll-Geyer</p>
                 <p>CSS :  Léo Lienhard, Yann Stoll-Geyer</p>
-                <p>Java-Script : Abel Gomes</p>
+                <p>JavaScript : Abel Gomes</p>
                 <p>Dessin : Capucine Dausse</p>
                 <p>Captcha : Capucine Dausse</p>
                 <p>Production : :(){:|:&};: </p>
+                <p>Remerciment spécial au Responsable soutient mental</p>
+                <p>Krof</p>
             </div>
         </div>
     </div>
-    <audio autoplay>
+    <audio id="audio" autoplay loop>
         <source src="CodeQ.mp3" type="audio/mpeg">
+        Votre navigateur ne prend pas en charge l'élément audio.
     </audio>
     <script>
+        // Essayer de jouer l'audio immédiatement
+        var audio = document.getElementById('audio');
+        audio.play().catch(function(error) {
+            console.log("Playback failed: " + error);
+        });
+
         setTimeout(function() {
             window.location.href = "index.html"; 
-        }, 60000);
+        }, 22900);
     </script>
 </body>
 </html>
