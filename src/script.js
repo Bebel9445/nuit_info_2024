@@ -38,8 +38,11 @@ function changePort(ville) {
 function test() {
     console.log("test")
 }
-
 const waterImage = new Image();
+const weatherImage = new Image();
+const weatherWidth = 150;
+const weatherHeight = 150;
+let meteo_code = 0;
 
 // Fonction pour récupérer et afficher la météo en direct
 async function fetchCurrentWeather() {
@@ -54,6 +57,7 @@ async function fetchCurrentWeather() {
 
     const data = await response.json();
     const currentWeather = data.current_weather;
+    const code = currentWeather.weathercode;
 
     // Créer un objet Date avec l'heure actuelle
     const now = new Date();
@@ -77,6 +81,20 @@ async function fetchCurrentWeather() {
     }
     else {
         waterImage.src = "assets/water_night.png";
+    }
+
+    // Change l'image de la météo en fonction du code
+    if (code === 0) {
+        weatherImage.src = "assets/soleil.png";
+        meteo_code = 1;
+    }
+    else if (code === 1 || code === 2 || code === 3) {
+        weatherImage.src = "assets/nuage.png";
+        meteo_code = 2;
+    }
+    else if (code === 61 || code === 63 || code === 65){
+        weatherImage.src = "assets/pluie.png";
+        meteo_code = 3;
     }
 
 
@@ -119,17 +137,17 @@ let viewY = 2500;
 let cervX = 2500;
 let cervY = 2500;
 
-let poumX = 2250;
-let poumY = 2250;
+let poumX = 1750;
+let poumY = 2000;
 
-let foieX = 2750;
-let foieY = 2750;
+let foieX = 3250;
+let foieY = 3250;
 
-let reinX = 2750;
-let reinY = 2250;
+let reinX = 3250;
+let reinY = 2000;
 
-let coeurX = 2250;
-let coeurY = 2750;
+let coeurX = 1750;
+let coeurY = 3000;
 
 // Vitesse de déplacement
 const speed = 3;
@@ -451,6 +469,21 @@ function gameLoop() {
     ctx.drawImage(reinImage, reinX-viewX, reinY-viewY, reinWidth, reinHeight);
     ctx.drawImage(coeurImage, coeurX-viewX, coeurY-viewY, coeurWidth, coeurHeight);
     ctx.drawImage(boatImage, boatX, boatY, boatWidth, boatHeight);
+
+    if (meteo_code === 1) {
+        ctx.drawImage(weatherImage, canvas.width - weatherWidth, 0, weatherWidth, weatherHeight);
+    }
+    else if (meteo_code === 2) {
+        for (let i = 0; i < canvas.width; i += weatherWidth) {
+            ctx.drawImage(weatherImage, i, 0, weatherWidth, weatherHeight);
+        }
+    }
+    else{
+        for (let i = 0; i < canvas.width; i += weatherWidth) {
+            ctx.drawImage(weatherImage, i, 0, weatherWidth, weatherHeight);
+            }
+    }
+
     checkAllCollision();
     quiz();
 
