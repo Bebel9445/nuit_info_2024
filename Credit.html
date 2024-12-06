@@ -11,7 +11,7 @@
             overflow: hidden;
             background-color: black;
             color: yellow;
-            font-family: 'Pieces of Eight', sans-serif;
+            font-family: 'Pieces', sans-serif;
         }
 
         .star-wars {
@@ -53,6 +53,18 @@
             height: auto; /* Garde les proportions de l'image */
             margin-top: 20px; /* Ajoute un espace au-dessus de l'image */
         }
+
+        /* Style pour le message du Konami Code */
+        .konami-message {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+            color: white;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -78,20 +90,45 @@
             </div>
         </div>
     </div>
+    <div class="konami-message" id="konamiMessage">
+        <p>Vous avez activé le Konami Code !</p>
+    </div>
     <audio id="audio" autoplay loop>
         <source src="assets/CodeQ.mp3" type="audio/mpeg"> <!-- Assurez-vous que le fichier audio est présent -->
         Votre navigateur ne prend pas en charge l'élément audio.
     </audio>
     <script>
-        // Essayer de jouer l'audio immédiatement
-        var audio = document.getElementById('audio');
-        audio.play().catch(function(error) {
-            console.log("Playback failed: " + error);
-        });
+    // Liste des touches pour le Konami Code : haut, haut, bas, bas, gauche, droite, gauche, droite, B, A
+    const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+    let konamiIndex = 0;
 
-        setTimeout(function() {
-            window.location.href = "index.html"; 
-        }, 22900);
-    </script>
-</body>
-</html>
+    // Références à l'élément du message
+    const konamiMessage = document.getElementById("C'est un chameau, il va dans une fromagerie, il demande à la fromagère un whisky. La fromagère lui dit qu'elle ne vend pas de whisky car ici c'est une fromagerie. Le chameau réfléchie et lui dit: c'est pas grave, je suis venu à");
+
+    // Gestion des touches appuyées
+    document.addEventListener('keydown', function(event) {
+        if (event.keyCode === konamiCode[konamiIndex]) {
+            konamiIndex++;
+            // Si tout le code est saisi
+            if (konamiIndex === konamiCode.length) {
+                konamiMessage.style.display = 'block'; // Affiche le message
+                konamiMessage.innerHTML = "<p>Konami Code Activé ! Vous êtes un(e) véritable Jedi !</p>";
+                konamiIndex = 0; // Réinitialise pour permettre un nouvel essai
+            }
+        } else {
+            konamiIndex = 0; // Réinitialise si la séquence est brisée
+        }
+    });
+
+    // Essayer de jouer l'audio immédiatement
+    var audio = document.getElementById('audio');
+    audio.play().catch(function(error) {
+        console.log("Playback failed: " + error);
+    });
+
+    // Redirection automatique après 23 secondes
+    setTimeout(function() {
+        window.location.href = "index.html"; 
+    }, 22900);
+</script>
+        
