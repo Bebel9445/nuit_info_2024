@@ -1,5 +1,15 @@
 /*Modifications générales*/
 
+body {
+    filter: contrast(0.5) saturate(2) brightness(0.8) hue-rotate(90deg);
+    image-rendering: pixelated; /* Pour un rendu pixelisé */
+}
+
+.pixelated {
+    filter: contrast(0.5) saturate(2) brightness(0.8) hue-rotate(90deg);
+    image-rendering: pixelated; /* Pour un rendu pixelisé */
+}
+
 @font-face {
     font-family: 'NomDeVotrePolice';
     src: url('nuit_info_2024/asset/Pieces of Eight.ttf') format('truetype');
