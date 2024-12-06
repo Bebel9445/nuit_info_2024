@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <meta http-equiv="refresh" content="10; URL=http://www.votreautrepage.com/" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crédits Star Wars</title>
+    <title>Crédits</title>
     <style>
         body {
             margin: 0;
             overflow: hidden;
             background-color: black;
-            color: white;
-            font-family: 'Arial', sans-serif;
+            color: yellow;
+            font-family: 'Pieces of Eight', sans-serif;
         }
 
         .star-wars {
@@ -24,8 +25,8 @@
             top: 100%;
             width: 100%;
             text-align: center;
-            transform: rotateX(25deg);
-            animation: crawl 60s linear infinite;
+            transform: rotateX(20deg);
+            animation: crawl 20s linear infinite;
         }
 
         @keyframes crawl {
@@ -51,17 +52,26 @@
 <body>
     <div class="star-wars">
         <div class="crawl">
-            <div class="title">Épisode IV</div>
-            <h1>A New Hope</h1>
+            <div class="title">Version 421</div>
+            <h1>Nuit de l'info 2024</h1>
             <div class="credits">
                 <p>Réalisateur : Hideo Kojima</p>
                 <p>HTML : Léo Lienhard, Yann Stoll-Geyer</p>
                 <p>CSS :  Léo Lienhard, Yann Stoll-Geyer</p>
                 <p>Java-Script : Abel Gomes</p>
                 <p>Dessin : Capucine Dausse</p>
+                <p>Captcha : Capucine Dausse</p>
                 <p>Production : :(){:|:&};: </p>
             </div>
         </div>
     </div>
+    <audio autoplay>
+        <source src="CodeQ.mp3" type="audio/mpeg">
+    </audio>
+    <script>
+        setTimeout(function() {
+            window.location.href = "autrePage.html"; 
+        }, 60000);
+    </script>
 </body>
 </html>
