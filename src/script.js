@@ -394,7 +394,7 @@ function quiz(){
             les dégradant ainsi.
         </p>
         <p>
-            Les rivières sont ont pour équivalent, dans le corps humain, les
+            Les rivières ont pour équivalent, dans le corps humain, les
             <select id="5">
                 <option value="default">-- choisir une réponse --</option>
                 <option value="veines">veines</option>
