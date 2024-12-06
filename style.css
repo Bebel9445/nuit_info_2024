@@ -132,3 +132,38 @@ footer {
     bottom: 0;
     padding: 10px;
 }
+
+#captcha-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+    transform: translate(-50%, -50%);
+}
+
+  body {
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+img {
+    position: absolute;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#gif {
+    display: none; /* Masquer le GIF au départ */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100; /* Assurez-vous que le GIF est au-dessus des autres éléments */
+    width: 400px; /* Ajustez la largeur selon vos besoins */
+    height: auto; /* Conserve le ratio d'aspect */
+}

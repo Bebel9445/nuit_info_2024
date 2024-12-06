@@ -20,6 +20,11 @@ const timezones = {
     "Yokohama": 9             // UTC +9
 };
 
+const logo = document.getElementById('easter-egg-logo');
+const gif = document.getElementById('gif');
+const audio = document.getElementById('rickroll-audio');
+const images = "assets/Lyreco.png";
+
 let latitude = ports["Strasbourg"].latitude;
 let longitude = ports["Strasbourg"].longitude;
 let UTC = timezones["Strasbourg"]
@@ -250,6 +255,7 @@ function checkCollision(x, y, width, height) {
 }
 
 function createPopup(text) {
+    placerLogoAleatoirement()
     popup = true
     let div = document.createElement("div");
     div.innerText = text;
@@ -288,6 +294,7 @@ function createPopup(text) {
     div.addEventListener("click", () => {
         div.remove();
         popup = false;
+        logo.style.display = 'none';
     });
 }
 
@@ -315,10 +322,13 @@ function checkAllCollision(){
 }
 
 let quiz_effectue = false;
+let captcha_effectue = false;
 
 function quiz(){
     if (poumColl && foieColl && reinColl && coeurColl && checkCollision(cervX-viewX, cervY-viewY, cervWidth, cervHeight) && !popup && !quiz_effectue){
         popup = true
+        launchCaptcha( () => {
+
         let div = document.createElement("div");
         div.id = "quiz";
         div.style.fontSize = "24px";
@@ -414,11 +424,131 @@ function quiz(){
         }
         }, 50);
         document.body.appendChild(div);
+    });
     }
     else if (checkCollision(cervX-viewX, cervY-viewY, cervWidth, cervHeight) && !cervoColl && !popup && !quiz_effectue){
         createPopup("Vous n'avez pas encore trouvé toutes les informations nécessaires pour résoudre l'énigme...")
         cervoColl = true;
     }
+}
+
+function launchCaptcha(callback) {
+    // Conteneur principal
+    const captchaContainer = document.getElementById("captcha-container");
+    captchaContainer.innerHTML = ""; // Réinitialise le conteneur
+    captchaContainer.style.display = "flex";
+    captchaContainer.style.flexDirection = "column";
+    captchaContainer.style.alignItems = "center";
+    captchaContainer.style.marginTop = "20px";
+    captchaContainer.style.backgroundColor = "#fff";
+
+    // Création du conteneur de jeu
+    const gameContainer = document.createElement("div");
+    gameContainer.id = "game-container";
+    Object.assign(gameContainer.style, {
+      position: "relative",
+      width: "400px",
+      height: "400px",
+      background: "linear-gradient(to bottom, #87CEEB 70%, #ffffff 30%)",
+      border: "2px solid #ccc",
+      borderRadius: "10px",
+      overflow: "hidden",
+    });
+
+    // Message pour l'utilisateur
+    const message = document.createElement("div");
+    message.id = "message";
+    message.style.marginTop = "20px";
+    message.style.fontSize = "18px";
+    message.style.color = "#333";
+    message.textContent = "Cliquez sur le bateau rouge !";
+
+    // Ajout au conteneur principal
+    captchaContainer.appendChild(gameContainer);
+    captchaContainer.appendChild(message);
+
+    const colors = ["red", "blue", "green", "yellow", "purple", "orange"];
+    const boats = [];
+    const boatCount = 6;
+    let targetColor = "";
+    let success = false;
+
+    // Fonction pour créer un bateau (SVG intégré dans DOM)
+    function createBoat(color) {
+      const boat = document.createElement("div");
+      boat.className = "boat";
+      boat.dataset.color = color;
+      Object.assign(boat.style, {
+        position: "absolute",
+        width: "60px",
+        height: "60px",
+        cursor: "pointer",
+      });
+
+      // SVG du bateau
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="60" height="60">
+          <rect x="20" y="60" width="60" height="10" fill="${color}" />
+          <rect x="48" y="30" width="4" height="30" fill="black" />
+          <polygon points="50,30 50,60 30,60" fill="${color}" opacity="0.8" />
+          <polygon points="50,30 50,60 70,60" fill="${color}" opacity="0.6" />
+        </svg>`;
+      boat.innerHTML = svg;
+
+      // Positionnement aléatoire
+      const randomX = Math.floor(Math.random() * (gameContainer.offsetWidth - 60));
+      const randomY = Math.floor(Math.random() * (gameContainer.offsetHeight - 60));
+      boat.style.left = `${randomX}px`;
+      boat.style.top = `${randomY}px`;
+
+      // Ajout de l'événement de clic
+      boat.addEventListener("click", () => {
+        if (success) return;
+        if (boat.dataset.color === targetColor) {
+          success = true;
+          message.textContent = "Bravo ! Vous avez cliqué sur le bon bateau 🎉";
+          captcha_effectue = true;
+          document.getElementById("captcha-container").remove();
+          callback()
+        } else {
+          message.textContent = `Mauvais choix ! Essayez encore de cliquer sur le bateau ${targetColor} !`;
+        }
+      });
+
+      gameContainer.appendChild(boat);
+      boats.push(boat);
+    }
+
+    // Choisir une couleur cible
+    function chooseTargetColor() {
+      const randomIndex = Math.floor(Math.random() * colors.length);
+      targetColor = colors[randomIndex];
+      message.textContent = `Cliquez sur le bateau ${targetColor} !`;
+    }
+
+    // Déplacer les bateaux de manière aléatoire
+    function moveBoats() {
+      boats.forEach((boat) => {
+        const maxX = gameContainer.offsetWidth - boat.offsetWidth;
+        const maxY = gameContainer.offsetHeight - boat.offsetHeight;
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+        boat.style.left = `${randomX}px`;
+        boat.style.top = `${randomY}px`;
+      });
+    }
+
+    // Initialisation du CAPTCHA
+    for (let i = 0; i < boatCount; i++) {
+      createBoat(colors[i]);
+    }
+    chooseTargetColor();
+
+    // Déplacement des bateaux toutes les 800ms
+    const moveInterval = setInterval(() => {
+      if (success) clearInterval(moveInterval);
+      moveBoats();
+    }, 800);
 }
 
 function checkReponses(){
@@ -489,3 +619,38 @@ function gameLoop() {
 
     requestAnimationFrame(gameLoop);
 }
+
+
+
+
+
+// Fonction pour positionner le logo aléatoirement
+function placerLogoAleatoirement() {
+    logo.style.display = 'block'
+    logo.style.width = "10%";
+    logo.style.height = "10%";
+    logo.src = images
+    const windowWidth = window.innerWidth - 100; // 100 pour la largeur de l'image
+    const windowHeight = window.innerHeight - 100; // 100 pour la hauteur de l'image
+
+    const posX = Math.floor(Math.random() * windowWidth);
+    const posY = Math.floor(Math.random() * windowHeight);
+
+    logo.style.left = `${posX}px`;
+    logo.style.top = `${posY}px`;
+}
+
+// Fonction pour afficher le Rick Roll
+function afficherRickRoll() {
+    logo.style.display = 'none'; // Masquer le logo
+    gif.style.display = 'block'; // Afficher le GIF
+    audio.play(); // Joue l'audio de Rick Roll
+
+    // Masquer le GIF après 5 secondes
+    setTimeout(() => {
+        gif.style.display = 'none'; // Masquer le GIF
+        logo.style.display = 'block'; // Afficher le logo
+    }, 5000);
+}
+
+logo.addEventListener('click', afficherRickRoll);
