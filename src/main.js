@@ -13,9 +13,12 @@ const mapHeight = 5000;
 let viewX = 2500;
 let viewY = 2500;
 
-// Position du cervo
+// Position des iles
 let cervX = 2500;
 let cervY = 2500;
+
+let poumX = 2250;
+let poumY = 2250;
 
 // Vitesse de déplacement
 const speed = 3;
@@ -31,6 +34,10 @@ const cervImage = new Image();
 cervImage.src = "assets/cervo.png";
 let cervoColl = false;
 
+const poumImage = new Image();
+poumImage.src = "assets/poumon.png";
+let poumColl = false;
+
 let popup = false; // Popup affiché ou non
 
 // Taille des images
@@ -43,11 +50,16 @@ const boatHeight = 100; // Nouvelle hauteur du bateau
 const cervWidth = 200; // Nouvelle largeur du cervo
 const cervHeight = 200; // Nouvelle hauteur du cervo
 
+const poumWidth = 200;
+const poumHeight = 200;
+
+createPopup("Bienvenue sur le jeu de la nuit de l'info !\nVotre objectif est de trouver les différentes informations afin de resoudre l'énigme finale!\nPour vous déplacer, utilisez les flèches du clavier.\nBonne chance !");
+
 // Lorsque les images sont chargées
 let imagesLoaded = 0;
 const onImageLoad = () => {
     imagesLoaded++;
-    if (imagesLoaded === 3) {
+    if (imagesLoaded === 4) {
         requestAnimationFrame(gameLoop);
     }
 };
@@ -55,6 +67,7 @@ const onImageLoad = () => {
 waterImage.onload = onImageLoad;
 boatImage.onload = onImageLoad;
 cervImage.onload = onImageLoad;
+poumImage.onload = onImageLoad;
 
 
 // Gérer les touches
@@ -87,20 +100,48 @@ function createPopup(text) {
     popup = true
     let div = document.createElement("div");
     div.innerText = text;
+    div.style.display = "flex";
+    div.style.justifyContent = "center";
+    div.style.textAlign = "center",
+    div.style.alignItems = "center";
     div.style.position = "absolute";
-    div.style.width = "200px";
-    div.style.height = "200px";
+    div.style.width = "400px";
+    div.style.minHeight = "100px";
+    div.style.height = "fit-content";
     div.style.top = "50%";
     div.style.left = "50%";
     div.style.transform = "translate(-50%, -50%)";
     div.style.backgroundColor = "black";
     div.style.color = "white";
     div.className = "popup"
+    let opacity = 0;
+    div.style.opacity = 0;
+    const interval = setInterval(() => {
+        opacity += 0.1; // Augmente par pas de 0.05
+        div.style.opacity = opacity;
+
+        // Stoppe l'intervalle quand l'opacité atteint 1
+        if (opacity >= 1) {
+            clearInterval(interval);
+        }
+    }, 50);
     document.body.appendChild(div);
     div.addEventListener("click", () => {
         div.remove();
         popup = false;
     });
+}
+
+function checkAllCollision(){
+    if (checkCollision(cervX-viewX, cervY-viewY, cervWidth, cervHeight) && !cervoColl){
+        cervoColl = true;
+        createPopup("L'ile aux énigmes");
+    }
+
+    if (checkCollision(poumX-viewX, poumY-viewY, poumWidth, poumHeight) && !poumColl){
+        poumColl = true;
+        createPopup("Les poumons")
+    }
 }
 
 // Boucle de jeu
@@ -124,11 +165,9 @@ function gameLoop() {
     const boatX = canvas.width / 2 - boatWidth / 2;
     const boatY = canvas.height / 2 - boatHeight / 2;
     ctx.drawImage(cervImage, cervX-viewX, cervY-viewY, cervWidth, cervHeight);
+    ctx.drawImage(poumImage, poumX-viewX, poumY-viewY, poumWidth, poumHeight);
     ctx.drawImage(boatImage, boatX, boatY, boatWidth, boatHeight);
-    if (checkCollision(cervX-viewX, cervY-viewY, cervWidth, cervHeight) && !cervoColl) {
-        cervoColl = true;
-        createPopup("CERVO")
-    }
+    checkAllCollision();
 
     requestAnimationFrame(gameLoop);
 }
