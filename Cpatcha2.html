@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAPTCHA Jeu - Bateaux SVG</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+    #game-container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .boat {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div id="game-container"></div>
+    <div id="message">Cliquez sur le bateau rouge !</div>
+  </div>
+
+  <script>
+    const container = document.getElementById("game-container");
+    const message = document.getElementById("message");
+
+    const colors = ["red", "blue", "green", "yellow", "purple", "orange"];
+    const boats = [];
+    const boatCount = 6; // Nombre de bateaux
+    let targetColor = ""; // Couleur cible
+    let success = false;
+
+    // Fonction pour créer un bateau SVG réaliste
+    function createBoatSVG(color) {
+      return `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="60" height="60">
+          <!-- Coque -->
+          <rect x="20" y="60" width="60" height="10" fill="${color}" />
+          <!-- Mât -->
+          <rect x="48" y="30" width="4" height="30" fill="black" />
+          <!-- Voile gauche -->
+          <polygon points="50,30 50,60 30,60" fill="${color}" opacity="0.8" />
+          <!-- Voile droite -->
+          <polygon points="50,30 50,60 70,60" fill="${color}" opacity="0.6" />
+        </svg>`;
+    }
+
+    // Créer les bateaux
+    function createBoats() {
+      for (let i = 0; i < boatCount; i++) {
+        const boat = document.createElement("div");
+        boat.classList.add("boat");
+        boat.dataset.color = colors[i]; // Associe une couleur au bateau
+
+        // Ajouter le SVG correspondant à la couleur
+        boat.innerHTML = createBoatSVG(colors[i]);
+
+        // Position initiale aléatoire
+        const randomX = Math.floor(Math.random() * (container.offsetWidth - 60));
+        const randomY = Math.floor(Math.random() * (container.offsetHeight - 60));
+        boat.style.left = randomX + "px";
+        boat.style.top = randomY + "px";
+
+        container.appendChild(boat);
+        boats.push(boat);
+      }
+    }
+
+    // Choisir une couleur cible aléatoire
+    function chooseTargetColor() {
+      const randomIndex = Math.floor(Math.random() * colors.length);
+      targetColor = colors[randomIndex];
+      message.textContent = `Cliquez sur le bateau ${targetColor} !`;
+    }
+
+    // Déplacer les bateaux aléatoirement
+    function moveBoats() {
+      boats.forEach((boat) => {
+        const maxX = container.offsetWidth - boat.offsetWidth;
+        const maxY = container.offsetHeight - boat.offsetHeight;
+
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+
+        boat.style.left = randomX + "px";
+        boat.style.top = randomY + "px";
+      });
+    }
+
+    // Gérer le clic sur un bateau
+    function handleBoatClick(event) {
+      if (success) return;
+
+      const clickedColor = event.currentTarget.dataset.color;
+      if (clickedColor === targetColor) {
+        success = true;
+        message.textContent = "Bravo ! Vous avez cliqué sur le bon bateau 🎉";
+        clearInterval(moveInterval);
+      } else {
+        message.textContent = `Mauvais choix ! Essayez encore de cliquer sur le bateau ${targetColor} !`;
+      }
+    }
+
+    // Ajouter des écouteurs sur les bateaux
+    function addBoatEventListeners() {
+      boats.forEach((boat) => {
+        boat.addEventListener("click", handleBoatClick);
+      });
+    }
+
+    // Initialisation du jeu
+    createBoats();
+    chooseTargetColor();
+    addBoatEventListeners();
+    const moveInterval = setInterval(moveBoats, 800); // Déplacement toutes les 800 ms
+  </script>
+</body>
+</html>
