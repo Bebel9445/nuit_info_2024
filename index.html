@@ -28,11 +28,6 @@
             </ul>
         </div>
         
-        <!-- <div class="OverlayMap"><img src="carte.jpg" alt="Carte du jeu"></div> -->
-        <!-- <div id="iframe-container">
-            <iframe id="iframe" src=""></iframe> L'URL sera mise dynamiquement
-        </div> -->
-
         <div class="OverlayMeteo">
             <table border="1">
                 <tr>
@@ -56,17 +51,33 @@
                   <td id="city-time"></td>
                 </tr>
               </table>
-              
         </div>
     </header>
     <main>
         <section>
+            <!-- Musique de fond -->
+            <audio id="backmusic" loop autoplay>
+                <source src="nuit_info_2024/asset/MusiqueG.mp3" type="audio/mpeg">
+            </audio>
 
+            <!-- Musique qui s'active lors d'un événement -->
+            <audio id="eventmusic">
+                <source src="nuit_info_2024/asset/Victoire.mp3" type="audio/mpeg">
+            </audio>
+
+            <button id="play-event-music"></button>
         </section>
     </main>
     <footer>
 
     </footer>
     <script src="script.js"></script> <!-- Lien vers un script JavaScript -->
+    <script>
+        // JavaScript pour jouer la musique d'événement
+        document.getElementById("play-event-music").addEventListener("click", function() {
+            var eventMusic = document.getElementById("event-music");
+            eventMusic.play();
+        });
+    </script>
 </body>
 </html>
